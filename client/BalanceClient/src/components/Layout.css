@@ -1,0 +1,26 @@
+
+
+
+.selector{
+    
+    padding: 0px 0px 10px 10px;
+    min-height: 100vh;    
+    
+}
+
+
+
+.page {
+    
+    padding: 20px;
+
+}
+
+
+.holder {
+    background-color: white;
+    padding: 5px;
+    height: 100%;
+    border-radius: 10px;
+}
+

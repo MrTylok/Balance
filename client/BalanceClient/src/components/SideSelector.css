@@ -1,0 +1,19 @@
+.container {
+    
+    border-radius: 10px;
+    float: left;
+    margin: 20px 0px 0px 3px;
+    padding-top: 10px; 
+    min-height: 100px;
+    
+}
+
+.btn {
+    border: 1px solid whitesmoke;
+    z-index: 10;
+
+}
+
+.offcanvas-lg{
+    background-color: white;
+}

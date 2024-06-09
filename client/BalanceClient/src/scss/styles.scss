@@ -1,0 +1,19 @@
+@import "./var.scss";
+
+$custom-map: (
+    "intGreen": $my-green
+);
+
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+
+$theme-colors: map-merge($map1: $theme-colors, $map2: $custom-map);
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,23 @@
+
+
+.img-carousel{
+    display: block;
+    margin: auto;
+}
+
+.carousel-item{
+ border: 2px solid black;   
+}
+
+.carousel {
+    max-width: 80%;
+    margin: auto;
+}
+
+@media only screen and (max-width:600px) {
+    
+    .carousel{
+        max-width: 100%;
+    }
+
+}
