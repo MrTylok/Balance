@@ -1,8 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { AuthProvider } from './context/Auth.jsx';
+
 import App from './App.jsx';
 import Home from './pages/Home.jsx';
 import Page1 from './pages/Page1.jsx';
+import Admin from './pages/Admin.jsx';
 import FourZeroFour from './pages/FourZeroFour.jsx';
 
 import './index.css';
@@ -17,6 +20,7 @@ const router = createBrowserRouter([
     children: [
       { path: '/', element: <Home /> },
       { path: '/page1', element: <Page1 /> },
+      { path: '/dashboard', element: <Admin /> },
       { path: '*', element: <FourZeroFour /> },
     ],
   },
@@ -24,6 +28,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>
 );
