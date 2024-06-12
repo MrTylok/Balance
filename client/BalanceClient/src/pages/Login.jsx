@@ -26,7 +26,7 @@ function Login() {
 
     const response = await axiosPrivate.post(
       LOGIN_PATH,
-      JSON.stringify(email_s, psw_s)
+      JSON.stringify({ email: email_s, psw: psw_s })
     );
 
     const accessToken = response?.data?.accessToken;
