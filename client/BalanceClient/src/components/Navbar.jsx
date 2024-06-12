@@ -4,6 +4,18 @@ import { Link } from 'react-router-dom';
 
 function Navbar(props) {
   let navbarLinks = props.links;
+
+  const handleLinks = (obj) => {
+    let ownProperty = [];
+    for (let entry in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, entry)) {
+        ownProperty.push(entry);
+      }
+    }
+
+    return ownProperty;
+  };
+
   return (
     <nav className="navbar navbar-expand-lg">
       <div className="container-fluid container-style">
@@ -30,7 +42,7 @@ function Navbar(props) {
           id="navbarNav"
         >
           <ul className="navbar-nav">
-            {navbarLinks.map((l, idx) => {
+            {handleLinks(navbarLinks).map((e, idx) => {
               return (
                 <li
                   key={idx}
@@ -38,9 +50,9 @@ function Navbar(props) {
                 >
                   <Link
                     className="nav-link"
-                    to={'./' + l.toLowerCase()}
+                    to={navbarLinks[e]}
                   >
-                    {l}
+                    {e}
                   </Link>
                 </li>
               );
@@ -53,7 +65,7 @@ function Navbar(props) {
 }
 
 Navbar.propTypes = {
-  links: PropTypes.arrayOf(PropTypes.string),
+  links: PropTypes.objectOf(PropTypes.string),
 };
 
 export default Navbar;

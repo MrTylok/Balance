@@ -1,14 +1,18 @@
-import './Admin.css';
+import './Login.css';
 import { useState, useContext } from 'react';
 import { axiosPrivate } from '../api/axios';
 import AuthContext from '../context/Auth';
+import { Navigate, useLocation } from 'react-router-dom';
 
-const ADMIN_PATH = '/admin';
+const LOGIN_PATH = '/auth';
 
-function Admin() {
+function Login() {
   const { setAuth } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [psw, setPsw] = useState('');
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || '/';
 
   /**
    * Retrieves data from backend to log in
@@ -21,7 +25,7 @@ function Admin() {
     const psw_s = psw;
 
     const response = await axiosPrivate.post(
-      ADMIN_PATH,
+      LOGIN_PATH,
       JSON.stringify(email_s, psw_s)
     );
 
@@ -31,6 +35,10 @@ function Admin() {
     setAuth({ email, roles, accessToken });
     setEmail('');
     setPsw('');
+    <Navigate
+      to={from}
+      replace
+    />;
   };
 
   return (
@@ -42,7 +50,7 @@ function Admin() {
               handleSubmit(event);
             }}
           >
-            <div className="form-title">Admin Login</div>
+            <div className="form-title">User Login</div>
             <div className="mb-3 mx-3">
               <label
                 htmlFor="emailForm"
@@ -110,4 +118,4 @@ function Admin() {
   );
 }
 
-export default Admin;
+export default Login;
