@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 /**
  * Possible roles for each user:
@@ -14,6 +14,7 @@ const roles = {
 };
 
 const User = new mongoose.Schema({
+  uuid: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String, required: true },
   roles: { type: [Number], required: true, default: roles.d },

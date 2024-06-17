@@ -24,7 +24,7 @@ const controller = (req, res) => {
     return res.sendStatus(406);
   }
 
-  //everythings ok return content
+  //TODO everythings ok return content
   return res.sendStatus(200);
 };
 
