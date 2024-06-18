@@ -1,15 +1,15 @@
-import './css/Login.css';
-import { useState, useContext } from 'react';
+import './css/Register.css';
+import { useState } from 'react';
 import axiosInstance from '../api/axios';
-import AuthContext from '../context/Auth';
-import { Navigate, useLocation, Link } from 'react-router-dom';
 
-const LOGIN_PATH = '/auth';
+import { Navigate, useLocation } from 'react-router-dom';
 
-function Login() {
-  const { setAuth } = useContext(AuthContext);
+const REGISTER_PATH = '/register';
+
+function Register() {
   const [email, setEmail] = useState('');
   const [psw, setPsw] = useState('');
+  const [registrationResult, setRegistrationResult] = useState(undefined);
   const location = useLocation();
 
   const from = location.state?.from?.pathname || '/';
@@ -26,24 +26,24 @@ function Login() {
 
     try {
       const response = await axiosInstance.post(
-        LOGIN_PATH,
-        JSON.stringify({ email: email_s, psw: psw_s })
+        REGISTER_PATH,
+        JSON.stringify({ email: email_s, psw: psw_s }),
+        { headers: { 'Content-Type': 'application/json' } }
       );
-      const accessToken = response?.data?.accessToken;
-      const roles = response?.data?.roles;
-      const uuid = response?.data?.uuid;
 
-      setAuth({ email, uuid, roles, accessToken });
-      setEmail('');
-      setPsw('');
+      if (response.status === 201) {
+        setEmail('');
+        setPsw('');
+        <Navigate
+          to={from}
+          replace
+        />;
+        setRegistrationResult(true);
+      }
     } catch (error) {
       console.log(error.message, error.code);
+      setRegistrationResult(false);
     }
-
-    <Navigate
-      to={from}
-      replace
-    />;
   };
 
   return (
@@ -55,7 +55,7 @@ function Login() {
               handleSubmit(event);
             }}
           >
-            <div className="form-title">Sign In</div>
+            <div className="form-title">Sign Up</div>
             <div className="mb-3 mx-3">
               <label
                 htmlFor="emailForm"
@@ -116,20 +116,24 @@ function Login() {
                 </button>
               </div>
             </div>
+            <div className="reg-result">
+              {registrationResult === undefined ? (
+                ''
+              ) : registrationResult === true ? (
+                <p className="success-message">
+                  You have been correctly signed up!
+                </p>
+              ) : (
+                <p className="fail-message">
+                  Something went wrong please try again.
+                </p>
+              )}
+            </div>
           </form>
-          <div className="reg-div">
-            <p>Still not une of us?</p>
-            <Link
-              className="reg-link"
-              to="/register"
-            >
-              Register now
-            </Link>
-          </div>
         </div>
       </div>
     </div>
   );
 }
 
-export default Login;
+export default Register;

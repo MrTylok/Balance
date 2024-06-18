@@ -32,7 +32,7 @@ const controller = async (req, res) => {
           {
             email: foundUser.email,
           },
-          REFRESH_TOKEN_SECRET,
+          process.env.REFRESH_TOKEN_SECRET,
           { expiresIn: '1d' }
         );
 

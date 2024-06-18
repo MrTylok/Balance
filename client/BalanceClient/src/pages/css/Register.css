@@ -1,5 +1,4 @@
 
-
 .access-holder {
     text-align: center;
     margin: 20% 0px;
@@ -17,4 +16,14 @@
     margin-bottom: 10px;
 }
 
+.reg-result {
+    font-weight: bold;
+}
 
+.success-message {
+    color: greenyellow;
+}
+
+.fail-message {
+    color: red;
+}

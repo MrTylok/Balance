@@ -20,3 +20,7 @@ const User = new mongoose.Schema({
   roles: { type: [Number], required: true, default: roles.d },
   refresh_token: { type: String, required: false },
 });
+
+const users = mongoose.model('users', User);
+
+module.exports = users;

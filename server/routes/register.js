@@ -4,6 +4,6 @@ const timeStamp = require('../middleware/timeStamp').timeStamp;
 const registerController =
   require('../controllers/registerController').controller;
 
-router.get('/', [timeStamp, registerController]);
+router.post('/', [timeStamp, registerController]);
 
 module.exports = router;

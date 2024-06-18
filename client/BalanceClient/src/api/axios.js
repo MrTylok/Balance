@@ -4,6 +4,7 @@ const BASE_URL = 'http://localhost:4000';
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
   timeout: 5000,
+  headers: { 'Content-Type': 'application/json' },
 });
 
 export const axiosPrivate = axios.create({
