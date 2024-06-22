@@ -1,9 +1,8 @@
-const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const User = require('../model/users');
 const { v4: uuidv4 } = require('uuid');
 
-const controller = async (req, res) => {
+const controller = async (req, res, next) => {
   if (req?.body?.email === undefined || req?.body?.psw === undefined) {
     return res.sendStatus(403);
   }
@@ -16,7 +15,9 @@ const controller = async (req, res) => {
   return bcrypt.hash(psw, 10).then((hashedPsw) => {
     User.create({ uuid: uuidv4(), email: email, password: hashedPsw }).then(
       () => {
-        return res.sendStatus(201);
+        setLocal(res);
+        res.sendStatus(201);
+        next();
       },
       (err) => {
         console.log(err);
@@ -26,4 +27,8 @@ const controller = async (req, res) => {
   });
 };
 
-module.exports = { controller };
+const setLocal = (res) => {
+  res.locals.stat = 'registered_users';
+};
+
+module.exports = controller;

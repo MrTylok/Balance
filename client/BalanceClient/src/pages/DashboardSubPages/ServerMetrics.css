@@ -1,0 +1,25 @@
+
+
+
+.metrics-header-div{
+    text-align: center;
+    border-bottom: 1px solid #59d822;
+}
+
+.metrics-loading {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+    font-weight: bold;
+    font-size: large;
+}
+
+.metrics-body-div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    column-gap: 10px;
+    row-gap: 20px;
+
+    padding-top: 20px;
+}

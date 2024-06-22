@@ -2,7 +2,7 @@ import './css/Login.css';
 import { useState, useContext } from 'react';
 import axiosInstance from '../api/axios';
 import AuthContext from '../context/Auth';
-import { Navigate, useLocation, Link } from 'react-router-dom';
+import { useLocation, Link, useNavigate } from 'react-router-dom';
 
 const LOGIN_PATH = '/auth';
 
@@ -11,8 +11,9 @@ function Login() {
   const [email, setEmail] = useState('');
   const [psw, setPsw] = useState('');
   const location = useLocation();
+  const navigate = useNavigate();
 
-  const from = location.state?.from?.pathname || '/';
+  const from = location.state?.from ? location.state.from.pathname : '/';
 
   /**
    * Retrieves data from backend to log in
@@ -27,7 +28,8 @@ function Login() {
     try {
       const response = await axiosInstance.post(
         LOGIN_PATH,
-        JSON.stringify({ email: email_s, psw: psw_s })
+        JSON.stringify({ email: email_s, psw: psw_s }),
+        { withCredentials: true }
       );
       const accessToken = response?.data?.accessToken;
       const roles = response?.data?.roles;
@@ -39,11 +41,7 @@ function Login() {
     } catch (error) {
       console.log(error.message, error.code);
     }
-
-    <Navigate
-      to={from}
-      replace
-    />;
+    navigate(from, { replace: true });
   };
 
   return (

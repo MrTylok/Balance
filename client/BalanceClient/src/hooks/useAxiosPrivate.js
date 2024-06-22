@@ -23,16 +23,22 @@ function useAxiosPrivate() {
 
     const responseIntercept = axiosPrivate.interceptors.response.use(
       (response) => {
-        response;
+        return response;
       },
       async (error) => {
         const prevRequest = error?.config;
 
-        if (error?.response?.status === 403 && !prevRequest?.sent) {
+        if (
+          error?.response?.status === 403 &&
+          prevRequest?.sent === undefined
+        ) {
           prevRequest.sent = true;
-          const newAccessToken = refresh();
+
+          const newAccessToken = await refresh();
+
           prevRequest.headers['Authorization'] = 'Bearer ' + newAccessToken;
-          axiosPrivate(prevRequest);
+
+          return axiosPrivate(prevRequest);
         }
 
         return Promise.reject(error);

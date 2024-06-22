@@ -1,9 +1,9 @@
 const express = require('express');
 const timeStamp = require('../middleware/timeStamp');
-const refreshController = require('../controllers/refreshToken').controller;
+const refreshController = require('../controllers/refreshToken');
 
 const router = express.Router();
 
-router.post('/refresh', refreshController);
+router.post('/', timeStamp, refreshController);
 
 module.exports = router;

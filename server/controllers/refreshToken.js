@@ -6,11 +6,14 @@ const controller = async (req, res) => {
   const uuid = req?.body?.uuid;
 
   if (auth_cookie === undefined || uuid === undefined) {
-    res.sendStatus(401); //Unauthorized
+    console.log('Info', auth_cookie);
+    return res.status(401).json('missing cookie or uuid'); //Unauthorized
   }
 
   let foundUser = await User.findOne({ uuid: uuid }).exec();
   if (!foundUser) return res.sendStatus(403); //Forbidden
+
+  console.log('new token for ', foundUser.email);
 
   jwt.verify(
     auth_cookie,
@@ -27,11 +30,11 @@ const controller = async (req, res) => {
           },
         },
         process.env.ACCESS_TOKEN_SECRET,
-        { expiresIn: '1h' }
+        { expiresIn: '20m' }
       );
       return res.json({ accessToken: accessToken, roles: foundUser.roles });
     }
   );
 };
 
-module.exports = { controller };
+module.exports = controller;

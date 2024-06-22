@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 const User = require('../model/users');
 
-const controller = async (req, res) => {
+const controller = async (req, res, next) => {
   if (req?.body?.email === undefined || req?.body?.psw === undefined) {
     return res.sendStatus(403);
   }
@@ -25,7 +25,7 @@ const controller = async (req, res) => {
             },
           },
           process.env.ACCESS_TOKEN_SECRET,
-          { expiresIn: '1h' }
+          { expiresIn: '20m' }
         );
 
         const refreshToken = jwt.sign(
@@ -38,7 +38,7 @@ const controller = async (req, res) => {
 
         foundUser.refresh_token = refreshToken;
         foundUser.save();
-
+        setLocal(res);
         res.status(200);
         res.cookie('jwt_auth', refreshToken, {
           httpOnly: true,
@@ -51,6 +51,8 @@ const controller = async (req, res) => {
           uuid: foundUser.uuid,
           roles: foundUser.roles,
         });
+
+        next();
       } else {
         res.sendStatus(403);
       }
@@ -61,4 +63,8 @@ const controller = async (req, res) => {
     });
 };
 
-module.exports = { controller };
+const setLocal = (res) => {
+  res.locals.stat = 'total_access';
+};
+
+module.exports = controller;

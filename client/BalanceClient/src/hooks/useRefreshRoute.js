@@ -1,21 +1,27 @@
-import { axios } from '../api/axios';
+import axiosInstance from '../api/axios';
 import { useContext } from 'react';
 import AuthContext from '../context/Auth';
 
-const useRefreshToken = async () => {
-  const { setAuth } = useContext(AuthContext);
+const REFRESH_URL = '/refresh';
 
-  function refresh() {
-    const response = axios.get('./refresh', { withCredentials: true });
+const useRefreshToken = () => {
+  const { auth, setAuth } = useContext(AuthContext);
+
+  const refresh = async () => {
+    const response = await axiosInstance.post(
+      REFRESH_URL,
+      JSON.stringify({ uuid: auth?.uuid, id: 'refresh' }),
+      { withCredentials: true }
+    );
 
     setAuth((prev) => {
       return { ...prev, accessToken: response?.data?.accessToken };
     });
 
     return response?.data?.accessToken;
-  }
+  };
 
-  return refresh();
+  return refresh;
 };
 
 export default useRefreshToken;

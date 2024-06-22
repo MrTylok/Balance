@@ -1,0 +1,204 @@
+
+.external-container {
+    height: 100%;
+    background-color: white;
+}
+
+.search-div {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-auto-rows: 50px;
+    row-gap: 10px;
+}
+
+.search-type {
+    grid-area: 1 / 1 / 2 / 13;
+    height: 100%;
+    display: flex;
+    flex-direction:row;
+    justify-content:space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    overflow: scroll;
+    row-gap: 10px;
+    
+
+    p {
+        margin-top: auto;
+    }
+
+}
+
+
+.range-search {
+    display: grid;
+    grid-template-columns: repeat(7, 15px);
+    column-gap: 2px;
+    label {
+        grid-column: span 4;
+        display: inline;
+        
+    }
+
+    input {
+        grid-column: span 3;
+        display: inline;
+        padding: 5%
+    }
+}
+
+
+.search-form {
+    grid-area: 2 / 1 / 4 / 13;
+    height: 100%;
+    
+    
+    background-color:#e6e6e6;
+
+    .type-input {
+        
+        
+        form {
+            overflow: auto;
+            display: grid;
+            grid-template-columns: repeat(12, minmax(50px, 1fr));
+            grid-auto-rows: 50px;
+            column-gap: 10px;
+            
+            label {
+                display: flex;
+                grid-column: 3 / 5;
+                align-items: center;
+                justify-content: right;
+
+            };
+            
+            input {
+                grid-column: 5 / 9;
+                
+            };
+            
+            button {
+                grid-column: 9 / 11;
+                
+            }
+
+            p {
+                grid-area: 2 / 1 / 3 / 13 ;
+                
+                display: flex;
+                align-items: baseline;
+                justify-content: center;
+                font-size: large;
+                font-weight: 700;
+
+                color: red;
+                
+            }
+        }
+        
+    }
+
+    .type-select {
+        form {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-auto-rows: 50px; 
+           
+            select {
+                grid-area: 1 / 5 / 2 / 9;
+                margin:3px;
+            }
+            
+            button {
+                grid-area: 1 / 10 / 2 / 11;
+                margin:3px;
+            }
+
+            p {
+                grid-area: 2 / 1 / 3 / 13;
+                display: flex;
+                align-items: baseline;
+                justify-content: center;
+                font-size: large;
+                font-weight: 700;
+
+                color: red;
+                
+            }
+        }
+    }
+
+    .type-default {
+        display: flex;
+        justify-content: center;
+        font-size: large;
+
+    }
+}
+
+.search-result {
+    grid-area: 4 / 1 / 5 / 13;
+
+    .search-result-empty {
+        display: flex;
+        justify-content: center;
+        height: 100%;
+        margin-top: 5px;
+        font-size: large;
+        font-weight: 500;
+        font-style: italic;
+    }
+
+    .search-result-records{
+        overflow: scroll;
+        display: flex;
+        flex-flow: column;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        row-gap: 10px;
+        
+        
+
+        .search-result-record {
+            display: grid;
+            grid-template-columns: repeat(12, minmax(50px,1fr ));
+            grid-auto-rows: 50px;
+
+            #name , #image_name, #level , #description {
+                
+                display: flex;
+                justify-content: space-evenly;
+                align-items: start;
+                flex-wrap: wrap;
+            }
+
+            #name {
+                grid-column: 1/3;
+                margin-right: 5px;
+            }
+
+            #image_name {
+                grid-column: 3/5;
+                margin-right: 5px;
+            }
+
+            #level {
+                grid-column: 5/7;
+                margin-right: 5px;
+            } 
+
+            #description {
+                grid-column: 8 / 10;
+                margin: 3px;
+                
+            }
+
+            
+        }
+        
+
+    }
+}
+
+

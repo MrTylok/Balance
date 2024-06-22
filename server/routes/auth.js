@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const timeStamp = require('../middleware/timeStamp').timeStamp;
+const timeStamp = require('../middleware/timeStamp');
+const updateStat = require('../middleware/updateStat');
 
-const controllerAuth = require('../controllers/authController').controller;
+const controllerAuth = require('../controllers/authController');
 
-router.post('/', [timeStamp, controllerAuth]);
+router.post('/', [timeStamp, controllerAuth, updateStat]);
 
 module.exports = router;

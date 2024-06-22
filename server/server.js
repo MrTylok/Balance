@@ -25,16 +25,17 @@ app.use(require('./middleware/credentials'));
 app.use(cors(corsOptions));
 
 app.use('/imagesCarousel', require('./routes/imagesCarousel'));
+app.use('/refresh', require('./routes/refresh'));
 app.use('/auth', require('./routes/auth'));
 app.use('/register', require('./routes/register'));
-app.use('/refresh', require('./routes/refresh'));
 app.use('/logout', require('./routes/logout'));
 
-//middleware for protected routes
-app.use(require('./middleware/verifyAuthorization'));
+//protected routes
+app.use('/dashboard', require('./routes/dashboardRoutes/dashboardInfo'));
 
 mongoose.connection.once('open', () => {
   console.log('Connected to MongoDB');
+
   app.listen(
     process.env.PORT,
     console.log('Server listening on port ' + process.env.PORT)
